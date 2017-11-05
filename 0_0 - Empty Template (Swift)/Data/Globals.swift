@@ -38,7 +38,7 @@ class Globals : NSObject {
         super.init();
         
         //(todo) make an App Setting to check too!
-        let dispIsZoomed : Bool = (UIDevice.currentDevice().name == "Justin's iPhone");
+        let dispIsZoomed : Bool = (UIDevice.current.name == "Justin's iPhone");
         
         var zoomStat : String = "Globals.init():                        I am not zoomed";
         
@@ -67,17 +67,17 @@ class Globals : NSObject {
 /************************************************************************************************************************************/
 class Utils : NSObject {
     
-    class func delay_ms(delayVal_ms : Double) {
+    class func delay_ms(_ delayVal_ms : Double) {
         
-        let start : NSDate = NSDate(timeIntervalSinceNow: 0);
+        let start : Date = Date(timeIntervalSinceNow: 0);
         
         var canReturn = false;
         
         while(!canReturn) {
             
-            let curr = NSDate(timeIntervalSinceNow: 0);
+            let curr = Date(timeIntervalSinceNow: 0);
             
-            let elapsed    : Double = curr.timeIntervalSinceDate(start);
+            let elapsed    : Double = curr.timeIntervalSince(start);
             let elapsed_ms : Double = elapsed * 1000;
             
             canReturn = (elapsed_ms >= delayVal_ms);

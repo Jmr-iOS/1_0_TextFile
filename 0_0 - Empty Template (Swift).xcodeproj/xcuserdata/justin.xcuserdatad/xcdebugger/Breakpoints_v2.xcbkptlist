@@ -16,7 +16,7 @@
             startingLineNumber = "126"
             endingLineNumber = "126"
             landmarkName = "saveData()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,7 +32,7 @@
             startingLineNumber = "144"
             endingLineNumber = "144"
             landmarkName = "updateBackup()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,7 +48,7 @@
             startingLineNumber = "99"
             endingLineNumber = "99"
             landmarkName = "loadData()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

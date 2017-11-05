@@ -25,8 +25,8 @@ import UIKit
 class DataBackup : NSObject, NSCoding {
 
     //class data
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL         = DocumentsDirectory.URLByAppendingPathComponent("Empty_Templ_Sw_Bak");
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL         = DocumentsDirectory.appendingPathComponent("Empty_Templ_Sw_Bak");
 
     static let verbose : Bool = false;
 
@@ -42,7 +42,7 @@ class DataBackup : NSObject, NSCoding {
         
         self.someVal_0 = someVal_0;
         
-        if(DataBackup.verbose) { print("-->DataBackup.init?():                 initialization from backup begin (\(someVal_0))"); }
+        if(DataBackup.verbose) { print("-->DataBackup.init?():                 initialization from backup begin (\(someVal_0!))"); }
         
         super.init();
         
@@ -54,9 +54,9 @@ class DataBackup : NSObject, NSCoding {
 
 // MARK: NSCoding
     //store
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
 
-        aCoder.encodeObject(self.someVal_0, forKey:DataBackupKeys.someVal_0);
+        aCoder.encode(self.someVal_0, forKey:DataBackupKeys.someVal_0);
         
         if(DataBackup.verbose) { print("-->DataBackup.encodeWithCoder():       storage complete"); }
         
@@ -67,9 +67,9 @@ class DataBackup : NSObject, NSCoding {
     //retrieve
     required convenience init?(coder aDecoder: NSCoder) {
 
-        let someVal_0Backup : Int? = aDecoder.decodeObjectForKey(DataBackupKeys.someVal_0) as? Int;
+        let someVal_0Backup : Int? = aDecoder.decodeObject(forKey: DataBackupKeys.someVal_0) as? Int;
         
-        if(DataBackup.verbose) { print("-->DataBackup.convience.init?():       retrieved \(someVal_0Backup) for dummyData"); }
+        if(DataBackup.verbose) { print("-->DataBackup.convience.init?():       retrieved \(someVal_0Backup!) for dummyData"); }
         
         self.init(someVal_0: someVal_0Backup);
         
@@ -88,7 +88,7 @@ class DataBackup : NSObject, NSCoding {
 
         if(DataBackup.verbose) { print("-->DataBackup.loadData():             entering NSKeyedUnarchiver search"); }
 
-        let retrievedData : DataBackup? = NSKeyedUnarchiver.unarchiveObjectWithFile(DataBackup.ArchiveURL.path!) as? DataBackup;
+        let retrievedData : DataBackup? = NSKeyedUnarchiver.unarchiveObject(withFile: DataBackup.ArchiveURL.path) as? DataBackup;
 
         if(DataBackup.verbose) { print("-->DataBackup.loadData():             exiting NSKeyedUnarchiver search with '\(retrievedData!.hash)'"); }
 
@@ -127,7 +127,7 @@ class DataBackup : NSObject, NSCoding {
 
         let backup    : DataBackup    = DataBackup(someVal_0: currState)!;
 
-        let backupSaveStatus = NSKeyedArchiver.archiveRootObject(backup,      toFile: DataBackup.ArchiveURL.path!);
+        let backupSaveStatus = NSKeyedArchiver.archiveRootObject(backup,      toFile: DataBackup.ArchiveURL.path);
 
         if(DataBackup.verbose) { print("-->DataBackup.saveData():    name save status is '\(backupSaveStatus)' "); }
 
@@ -150,7 +150,7 @@ class DataBackup : NSObject, NSCoding {
     /*	@fcn		class func storeViewController(vc : ViewController)                                                             */
     /*  @brief      x                                                                                                               */
     /********************************************************************************************************************************/
-    class func storeViewController(vc : ViewController) {
+    class func storeViewController(_ vc : ViewController) {
         DataBackup.vc = vc;
         return;
     }

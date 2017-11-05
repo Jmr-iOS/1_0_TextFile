@@ -35,16 +35,16 @@ class ViewController: UIViewController {
         print("ViewController.viewDidLoad():       viewDidLoad() complete");
         
         //listen to 'Home' press
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)),
-                                                         name: UIApplicationWillResignActiveNotification,
+                                                         name: NSNotification.Name.UIApplicationWillResignActive,
                                                          object: nil);
     
         return;
     }
 
 
-    func applicationWillResignActive(notification: NSNotification) {
+    func applicationWillResignActive(_ notification: Notification) {
         print("I'm out of focus, home was pressed!");
         return;
     }
@@ -57,19 +57,19 @@ class ViewController: UIViewController {
     }
 
     
-    func optDemo_addButton(view:UIView) {
+    func optDemo_addButton(_ view:UIView) {
         
-        let button      : UIButton  = UIButton(type: UIButtonType.System) as UIButton;
+        let button      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
         let buttonWidth : CGFloat   = 300;
         
-        button.frame = CGRectMake(self.view.center.x-(buttonWidth/2), 100, buttonWidth, 50);
+        button.frame = CGRect(x: self.view.center.x-(buttonWidth/2), y: 100, width: buttonWidth, height: 50);
 
         
-        button.backgroundColor = UIColor.greenColor()
+        button.backgroundColor = UIColor.green
         
-        button.setTitle("Test Button", forState: UIControlState.Normal);
+        button.setTitle("Test Button", for: UIControlState());
   
-        button.addTarget(self, action: #selector(ViewController.myButton_response(_:)), forControlEvents:  .TouchUpInside);
+        button.addTarget(self, action: #selector(ViewController.myButton_response(_:)), for:  .touchUpInside);
 
         view.addSubview(button);
         
@@ -79,22 +79,22 @@ class ViewController: UIViewController {
     }
     
 
-    func makeAMonsterousLabel(view:UIView) {
+    func makeAMonsterousLabel(_ view:UIView) {
         
         let myFirstLabel  = UILabel();
 
         myFirstLabel.text          = "I made a label on the screen #toogood4you";
         myFirstLabel.font          = UIFont(name: "MarkerFelt-Thin", size: 45);
-        myFirstLabel.textColor     = UIColor.redColor();
-        myFirstLabel.textAlignment = .Center;
+        myFirstLabel.textColor     = UIColor.red;
+        myFirstLabel.textAlignment = .center;
 
         //text-wrap
         myFirstLabel.numberOfLines = 0;
-        myFirstLabel.lineBreakMode = .ByWordWrapping;
+        myFirstLabel.lineBreakMode = .byWordWrapping;
         
-        myFirstLabel.frame = CGRectMake((self.view.center.x - 150), 200, 300, 500);
+        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 500);
         
-        myFirstLabel.backgroundColor = UIColor.grayColor();
+        myFirstLabel.backgroundColor = UIColor.gray;
         
         view.addSubview(myFirstLabel);
 
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
     }
 */
     
-    func myButton_response(sender: UIButton!) {
+    func myButton_response(_ sender: UIButton!) {
 
         print("Button Response fired. Game on!");
         
