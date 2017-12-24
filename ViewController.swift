@@ -6,7 +6,7 @@
  *
  * 	@author		Justin Reina, Firmware Engineer, Jaostech
  * 	@created	11/12/15
- * 	@last rev	x
+ * 	@last rev	12/23/17
  *
  *
  * 	@notes		x
@@ -21,9 +21,14 @@
 /************************************************************************************************************************************/
 import UIKit
 
+
 class ViewController: UIViewController {
 
+    //@todo     init()
     
+    //@todo     init(NSCoder)
+    
+    //@todo     header
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -43,20 +48,20 @@ class ViewController: UIViewController {
         return;
     }
 
-
+    //@todo     header
     @objc func applicationWillResignActive(_ notification: Notification) {
         print("I'm out of focus, home was pressed!");
         return;
     }
 
-
+    //@todo     header
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
 
         return;
     }
 
-    
+    //@todo     header
     @objc func optDemo_addButton(_ view:UIView) {
         
         let button      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
@@ -78,7 +83,7 @@ class ViewController: UIViewController {
         return;
     }
     
-
+    //@todo     header
     @objc func makeAMonsterousLabel(_ view:UIView) {
         
         let myFirstLabel  = UILabel();
@@ -92,7 +97,7 @@ class ViewController: UIViewController {
         myFirstLabel.numberOfLines = 0;
         myFirstLabel.lineBreakMode = .byWordWrapping;
         
-        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 500);
+        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 400);
         
         myFirstLabel.backgroundColor = UIColor.gray;
         
@@ -101,8 +106,8 @@ class ViewController: UIViewController {
         return;
     }
     
-    
-/*    func pressed(sender: UIButton!) {
+    //@todo     header
+/*  func pressed(sender: UIButton!) {
         let alertView = UIAlertView();
         alertView.addButtonWithTitle("Ok");
         alertView.title = "title";
@@ -112,7 +117,7 @@ class ViewController: UIViewController {
         return;
     }
 */
-    
+    //@todo     header
     @objc func myButton_response(_ sender: UIButton!) {
 
         print("Button Response fired. Game on!");
