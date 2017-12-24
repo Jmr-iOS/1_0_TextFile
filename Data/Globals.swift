@@ -2,9 +2,6 @@
 /** @file		Globals.swift
  *	@project    0_0 - Empty Template (Swift)
  *
- * 	@author		Justin Reina, Firmware Engineer, Jaostech
- * 	@created	4/3/16
- *
  * 	@section	Opens
  * 			none current
  *
@@ -18,6 +15,7 @@ import UIKit
 let verbose : Bool    = false;
 let globals : Globals = Globals();
 
+//->(put your variables here)
 
 /************************************************************************************************************************************/
 /*	@fcn		Globals                                                                                                             */
@@ -25,8 +23,7 @@ let globals : Globals = Globals();
 /************************************************************************************************************************************/
 class Globals : NSObject {
     
-    //->(put your variables here)
-    @objc let example_var_0  : Int = 3;
+    let example_var_0  : Int = 3;
     var example_var_1 : Int?;
 
 
@@ -55,7 +52,7 @@ class Globals : NSObject {
     //******************************************************************************************************************************//
     //												    Misc Helpers                                                                //
     //******************************************************************************************************************************//
-    @objc func initCellTitle() -> String {
+    func initCellTitle() -> String {
         return "";                                                      /* Empty at this time                                       */
     }
 }
@@ -67,7 +64,7 @@ class Globals : NSObject {
 /************************************************************************************************************************************/
 class Utils : NSObject {
     
-    @objc class func delay_ms(_ delayVal_ms : Double) {
+    class func delay_ms(_ delayVal_ms : Double) {
         
         let start : Date = Date(timeIntervalSinceNow: 0);
         

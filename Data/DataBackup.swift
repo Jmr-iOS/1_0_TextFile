@@ -4,11 +4,6 @@
  * 	@brief		x
  * 	@details	x
  *
- * 	@author		Justin Reina, Firmware Engineer, Jaostech
- * 	@created	4/3/16
- * 	@last rev	x
- *
- *
  * 	@notes		x
  *
  * 	@section	Opens
@@ -31,7 +26,7 @@ class DataBackup : NSObject, NSCoding {
     @objc static let verbose : Bool = false;
 
     //system value FOR backup
-    @objc static var vc : ViewController!;                                        /* for use and access to data during a backup store/load*/
+    @objc static var vc : ViewController!;                                  /* for use and access to data during a backup store/load*/
 
     //data values FOR or FROM backup (temp verbose title for clarity)
     var someVal_0 : Int?;

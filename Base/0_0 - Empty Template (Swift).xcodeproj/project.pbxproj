@@ -65,8 +65,8 @@
 				D039B4B71BF4D7950024005F /* Products */,
 				D00C8B761FEF56910091C651 /* Assets.xcassets */,
 				D00C8B731FEF56910091C651 /* Base.lproj */,
-				D00C8B751FEF56910091C651 /* Empty.storyboard */,
 				D00C8B771FEF56910091C651 /* Info.plist */,
+				D00C8B751FEF56910091C651 /* Empty.storyboard */,
 				D00C8B741FEF56910091C651 /* Stdcomments.swift */,
 			);
 			name = Base;
