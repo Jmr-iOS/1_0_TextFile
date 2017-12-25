@@ -1,15 +1,15 @@
 /************************************************************************************************************************************/
 /** @file		ViewController.swift
- *  @project    0_0 - Empty Template (Swift)
+ *  @project    1_0 - Text File
  * 	@brief		x
  * 	@details	x
  *
  * 	@author		Justin Reina, Firmware Engineer, Jaostech
  * 	@created	11/12/15
- * 	@last rev	12/24/17
+ * 	@last rev	12/25/17
  *
  *
- * 	@notes		x
+ * 	@notes		automatic emails by app only provided by direct server access and not understood yet
  *
  * 	@section	Opens
  * 			none current
@@ -19,11 +19,15 @@
  * 			Corporation. Do not distribute. Do not copy.
  */
 /************************************************************************************************************************************/
+import Foundation
 import UIKit
+import MessageUI
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    var fileURL : URL!;
+    var fileName : String!;
     
     /********************************************************************************************************************************/
     /** @fcn        init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -66,6 +70,10 @@ class ViewController: UIViewController {
                                                name: NSNotification.Name.UIApplicationWillResignActive,
                                                object: nil);
     
+        //Generate File
+        self.genFile();
+        self.email_usr();
+        
         print("ViewController.viewDidLoad(): Load complete");
             
         return;
@@ -120,6 +128,125 @@ class ViewController: UIViewController {
         view.addSubview(button);
         
         print("ViewController.genButton():   Button added");
+        
+        return;
+    }
+
+    
+    /********************************************************************************************************************************/
+    /** @fcn        genFile()
+     *  @brief      generate a text file
+     *  @details    x
+     *
+     *  @section    Reference
+     *      https://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
+     */
+    /********************************************************************************************************************************/
+    func genFile() {
+
+        fileName = "file.txt";                              /* this is the file. we will write to and read from it                  */
+        
+        let text = "some text"                              /*  just a text                                                         */
+        
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first;
+
+        if(dir != nil) {
+            
+            fileURL = dir!.appendingPathComponent(fileName);
+            
+            //writing
+            do {
+                try text.write(to: fileURL, atomically: false, encoding: .utf8);
+            }
+            catch {/* error handling here */}
+            
+            //reading
+            do {
+                let text2 = try String(contentsOf: fileURL, encoding: .utf8);
+                print(text2);
+            }
+            catch {/* error handling here */}
+        }
+        
+        
+        //List Files
+        let fileManager = FileManager.default;
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0];
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil);
+            let N = fileURLs.count;
+            
+            print("Found \(fileURLs.count) files");
+            
+            for i in 0 ... (N-1) {
+                print(" [\(i)] \(fileURLs[i].lastPathComponent)");
+            }
+            // process files
+        } catch {
+            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)");
+        }
+        
+        
+        return;
+    }
+    
+    
+    /********************************************************************************************************************************/
+    /** @fcn        email_usr()
+     *  @brief      bring email dialog to the user for composition
+     *  @details    x
+     *
+     *  @section    Reference
+     *      https://developer.apple.com/documentation/messageui/mfmailcomposeviewcontroller
+     */
+    /********************************************************************************************************************************/
+    func email_usr() {
+        
+        //@pre  check availability
+        if(!MFMailComposeViewController.canSendMail()) {                         /* returns false for simulators                     */
+            print("ViewController.email_usr():   Mail services are not available");
+            return;
+        }
+        
+        //Configure Composition Interface
+        let composeVC = MFMailComposeViewController();
+        composeVC.mailComposeDelegate = self;
+        
+        // Configure the fields of the interface.
+        composeVC.setToRecipients(["justinmreina@gmail.com"]);
+        composeVC.setSubject("Hello!");
+        composeVC.setMessageBody("Hello from my phone!", isHTML: false);
+
+        //Add Attachment
+        if let fileData = NSData(contentsOfFile: self.fileURL.path) {
+                print("File data loaded");
+                composeVC.addAttachmentData(fileData as Data, mimeType: "    text/plain", fileName: fileName);
+        }
+        
+        // Present the view controller modally.
+        self.present(composeVC, animated: true, completion: nil);
+        
+        print("ViewController.emailFile():   Email composition view brought to view");
+        
+        return;
+    }
+    
+    
+    /********************************************************************************************************************************/
+    /** @fcn        mailComposeController()
+     *  @brief      respond to use email composition completion
+     *  @details    called from MFMailComposeViewControllerDelegate
+     *
+     *  @param        [in] (MFMailComposeViewController) controller - x
+     *  @param        [in] (MFMailComposeResult) didFinishWith - x
+     *  @param        [in] (Error?) error - x
+     */
+    /********************************************************************************************************************************/
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
+
+        // Dismiss the mail compose view controller.
+        controller.dismiss(animated: true, completion: nil)
         
         return;
     }
